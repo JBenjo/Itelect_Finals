@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction History - Cash-E</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #fafbfc; font-family: 'Inter', Arial, sans-serif; }
+        .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px #0001; padding: 32px; }
+        h1 { color: #2d176a; margin-bottom: 24px; font-size: 2.2em; }
+        .search-bar { width: 100%; padding: 14px 18px; border-radius: 10px; border: 1px solid #e5e7eb; font-size: 1em; margin-bottom: 18px; }
+        .filter-tabs { display: flex; gap: 12px; margin-bottom: 18px; }
+        .filter-tab { padding: 8px 22px; border-radius: 20px; border: none; background: #f3f0ff; color: #5b21b6; font-weight: 500; cursor: pointer; }
+        .filter-tab.active { background: #5b21b6; color: #fff; }
+        .transaction-list { margin-top: 12px; }
+        .transaction-card { display: flex; align-items: center; background: #fff; border-radius: 14px; box-shadow: 0 2px 8px #0001; padding: 18px 20px; margin-bottom: 18px; }
+        .transaction-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 18px; font-size: 1.5em; }
+        .icon-sent { background: #fbe9e7; color: #e53935; }
+        .icon-received { background: #e8f5e9; color: #43a047; }
+        .icon-bill { background: #e3f2fd; color: #1976d2; }
+        .icon-add { background: #ede7f6; color: #5b21b6; }
+        .transaction-details { flex: 1; }
+        .transaction-title { font-weight: 600; color: #222; font-size: 1.08em; }
+        .transaction-date { font-size: 0.96em; color: #888; margin-top: 2px; }
+        .transaction-amount { font-weight: 700; font-size: 1.1em; min-width: 120px; text-align: right; }
+        .transaction-amount.negative { color: #e53935; }
+        .transaction-amount.positive { color: #43a047; }
+        .transaction-status { font-size: 0.9em; color: #888; text-align: right; }
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .transaction-card { flex-direction: column; align-items: flex-start; }
+            .transaction-amount, .transaction-status { text-align: left; margin-top: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="dashboard.html" style="display:block;margin-bottom:18px;color:#5b21b6;">&larr; Back to Dashboard</a>
+        <h1>Transaction History</h1>
+        <input type="text" class="search-bar" id="search" placeholder="🔍 Search transactions...">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-type="all">All</button>
+            <button class="filter-tab" data-type="sent">Sent</button>
+            <button class="filter-tab" data-type="received">Received</button>
+            <button class="filter-tab" data-type="bill">Bills</button>
+            <button class="filter-tab" data-type="add">Add Cash</button>
+        </div>
+        <div class="transaction-list" id="recent-transactions">
+            <!-- Recent transactions will be inserted here -->
+        </div>
+    </div>
+    <script>
+        // Utility: format date
+        function formatDate(iso) {
+            const d = new Date(iso);
+            return d.toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        // Utility: format currency
+        function formatCurrency(amount) {
+            return (amount < 0 ? "-₱" : "+₱") + Math.abs(amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+        }
+        // Icon and color by type
+        function getIcon(type) {
+            if (type === "sent") return '<div class="transaction-icon icon-sent"><i class="fas fa-arrow-up"></i></div>';
+            if (type === "received") return '<div class="transaction-icon icon-received"><i class="fas fa-arrow-down"></i></div>';
+            if (type === "bill") return '<div class="transaction-icon icon-bill"><i class="fas fa-file-invoice-dollar"></i></div>';
+            if (type === "add") return '<div class="transaction-icon icon-add"><i class="fas fa-plus"></i></div>';
+            return '<div class="transaction-icon icon-add"><i class="fas fa-question"></i></div>';
+        }
+        // Load and render transactions
+        function renderTransactions() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const type = document.querySelector('.filter-tab.active').dataset.type;
+            let txs = JSON.parse(localStorage.getItem('transactions') || "[]");
+            if (type !== "all") txs = txs.filter(t => t.type === type);
+            if (search) txs = txs.filter(t => t.title.toLowerCase().includes(search));
+            const list = document.getElementById('recent-transactions');
+            if (txs.length === 0) {
+                list.innerHTML = `<div style="color:#888;text-align:center;margin:40px 0;">No transactions found.</div>`;
+                return;
+            }
+            list.innerHTML = txs.map(t => `
+                <div class="transaction-card">
+                    ${getIcon(t.type)}
+                    <div class="transaction-details">
+                        <div class="transaction-title">${t.title}</div>
+                        <div class="transaction-date">${formatDate(t.date)}</div>
+                    </div>
+                    <div>
+                        <div class="transaction-amount ${t.amount < 0 ? 'negative' : 'positive'}">${formatCurrency(t.amount)}</div>
+                        <div class="transaction-status">${t.status}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Filter tab click
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.onclick = function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderTransactions();
+            }
+        });
+        // Search
+        document.getElementById('search').oninput = renderTransactions;
+        // Initial render
+        renderTransactions();
+    </script>
+</body>
+</html>

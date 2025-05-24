@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Cash-E</title>
+    <style>
+        body { background: #f9f9f9; font-family: Arial, sans-serif; }
+        .container { max-width: 400px; margin: 60px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px #0001; padding: 32px; }
+        h1 { color: #5b21b6; margin-bottom: 16px; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 16px; }
+        button { width: 100%; padding: 12px; border-radius: 8px; background: #5b21b6; color: #fff; border: none; font-size: 1rem; cursor: pointer; }
+        button:hover { background: #4c1d95; }
+        .msg { margin-top: 12px; min-height: 20px; }
+        a { display: block; margin-top: 24px; color: #5b21b6; text-align: center; }
+        .wallet-balance { font-weight: bold; color: #5b21b6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <input type="text" id="reg-username" placeholder="Username" required>
+        <input type="password" id="reg-password" placeholder="Password" required>
+        <button onclick="register()">Register</button>
+        <div class="msg" id="reg-msg"></div>
+        <a href="login.html">Already have an account? Log in</a>
+    </div>
+    <script>
+        function register() {
+            const username = document.getElementById('reg-username').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const msg = document.getElementById('reg-msg');
+            if (!username || !password) {
+                msg.textContent = "Please fill in all fields.";
+                msg.style.color = "red";
+                return;
+            }
+            localStorage.setItem('cashEUser', JSON.stringify({ username, password }));
+            msg.textContent = "Registration successful! You can now log in.";
+            msg.style.color = "green";
+            setTimeout(() => { window.location.href = "login.html"; }, 1200);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash-E - Digital Wallet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            display: inline-block;
+            margin-left: 24px;
+        }
+        
+        .nav-menu a {
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #5b21b6;
+        }
+        
+        .btn-outline {
+            border: 1px solid #5b21b6;
+            color: #5b21b6;
+            padding: 8px 16px;
+            border-radius: 9999px;
+        }
+        
+        .btn-outline:hover {
+            background-color: #5b21b6;
+            color: white;
+        }
+        
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #5b21b6, #4c1d95);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 576px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: #5b21b6;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        
+        .feature-icon i {
+            color: #5b21b6;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        
+        .feature-card p {
+            color: #666;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f3f0ff;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .steps {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: #5b21b6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 16px;
+        }
+        
+        .step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        
+        .step p {
+            color: #666;
+        }
+        
+        @media (min-width: 768px) {
+            .step:not(:last-child)::after {
+                content: "";
+                position: absolute;
+                top: 20px;
+                right: -16px;
+                width: 32px;
+                height: 2px;
+                background-color: #5b21b6;
+            }
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 24px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        .author-info p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(to right, #5b21b6, #4c1d95);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #111;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section p {
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #aaa;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .social-link {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Cash-E</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="help.html">Help Center</a></li>
+            </ul>
+            <div class="auth-buttons" style="margin-left:auto; display:flex; gap:12px;">
+                <a href="login.html" class="btn btn-primary" style="padding:8px 20px; font-size:1em;">Log In</a>
+                <a href="register.html" class="btn btn-outline" style="padding:8px 20px; font-size:1em;">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Wallet -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Cash-E Wallet</h1>
+                <p>Manage your money, anytime, anywhere. Try adding or withdrawing cash below!</p>
+                <div style="margin: 32px 0;">
+                    <span>Available Balance</span>
+                    <h2><span class="wallet-balance">₱0.00</span></h2>
+                    <div style="margin: 16px 0;">
+                        <input type="number" id="amount" placeholder="Enter amount" min="1" style="padding:8px; border-radius:8px; border:1px solid #ccc; width:140px;">
+                        <button class="btn btn-primary" onclick="addCash()">Add Cash</button>
+                        <button class="btn btn-secondary" onclick="withdrawCash()">Withdraw Cash</button>
+                    </div>
+                    <div id="wallet-message" style="color:yellow; margin-top:8px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Cash-E?</h2>
+            <p class="section-subtitle">Experience the convenience of digital banking with our feature-rich e-wallet</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3>Send Money Instantly</h3>
+                    <p>Transfer funds to friends, family, or businesses instantly with just a few taps, anytime and anywhere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Pay Bills Hassle-Free</h3>
+                    <p>Pay your utility bills, credit cards, loans, and more without the hassle of long queues or multiple apps.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Transactions</h3>
+                    <p>Rest easy knowing your money and personal information are protected with our advanced security measures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get started with Cash-E in three simple steps</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create an Account</h3>
+                    <p>Sign up for a free Cash-E account using your email and mobile number.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Add Money</h3>
+                    <p>Load your wallet through bank transfers, credit/debit cards, or over-the-counter.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Start Transacting</h3>
+                    <p>Send money, pay bills, shop online, and more with your Cash-E wallet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <p class="section-subtitle">Join thousands of satisfied Cash-E users</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Cash-E has made managing my finances so much easier. I can pay all my bills in one place and send money to my family back home instantly. The app is user-friendly and secure!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h4>Maria Rodriguez</h4>
+                            <p>Cash-E user for 2 years</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"As a small business owner, Cash-E has been a game-changer for me. I can receive payments from customers instantly and manage my business expenses all in one app. Highly recommended!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <h4>John Santos</h4>
+                            <p>Small Business Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of users who trust Cash-E for their digital banking needs.</p>
+                <a href="register.html" class="btn btn-primary">Create Your Account</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cash-E</h3>
+                    <p>Managing Your Money, Anytime, Anywhere.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="send-money.html">Send Money</a></li>
+                        <li><a href="pay-bills.html">Pay Bills</a></li>
+                        <li><a href="add-cash.html">Add Cash</a></li>
+                        <li><a href="withdraw-cash.html">Withdraw Cash</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="help.html">Support Center</a></li>
+                        <li><a href="security.html">Security</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            // Operator 1: Assignment operator (=)
+            let isActive = navMenu.classList.contains('active');
+            
+            // Operator 2: Logical NOT (!)
+            isActive = !isActive;
+            
+            // Operator 3: Ternary operator(? :)
+            isActive ? navMenu.classList.add('active') : navMenu.classList.remove('active');
+            
+            // Toggle menu icon
+            this.classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Operator 4: String manipulation (substring)
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // Operator 5: Logical AND (&&)
+                if (targetId && document.getElementById(targetId)) {
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Validate email subscription form
+        function validateEmail(email) {
+            // Operator 6: Comparison operator (===)
+            if (email === "") {
+                return false;
+            }
+            
+            // Operator 7: Logical OR (||)
+            if (!email.includes('@') || !email.includes('.')) {
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Track page visits using localStorage
+        window.addEventListener('load', function() {
+            // Get current visit count
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            
+            // Operator 8: Arithmetic operator (+)
+            visitCount = parseInt(visitCount) + 1;
+            
+            // Save updated count
+            localStorage.setItem('visitCount', visitCount);
+            
+            console.log('Visit count: ' + visitCount);
+        });
+    </script>
+    <script src="wallet.js"></script>
+    <script>
+        function updateBalanceDisplay() {
+            document.getElementById('wallet-balance').textContent = formatCurrency(getBalance());
+        }
+        function showMessage(msg, color='yellow') {
+            const el = document.getElementById('wallet-message');
+            el.textContent = msg;
+            el.style.color = color;
+            setTimeout(() => { el.textContent = ''; }, 2000);
+        }
+        function addCash() {
+            const amt = parseFloat(document.getElementById('amount').value);
+            if (isNaN(amt) || amt <= 0) return showMessage('Enter a valid amount', 'red');
+            addToBalance(amt);
+            updateBalanceDisplay();
+            showMessage('Added ' + formatCurrency(amt), 'lime');
+        }
+        function withdrawCash() {
+            const amt = parseFloat(document.getElementById('amount').value);
+            if (isNaN(amt) || amt <= 0) return showMessage('Enter a valid amount', 'red');
+            if (amt > getBalance()) return showMessage('Insufficient balance', 'red');
+            deductFromBalance(amt);
+            updateBalanceDisplay();
+            showMessage('Withdrew ' + formatCurrency(amt), 'lime');
+        }
+        window.addEventListener('DOMContentLoaded', updateBalanceDisplay);
+    </script>
+</body>
+</html>

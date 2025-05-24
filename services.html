@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash-E - Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming a common stylesheet -->
+    <style>
+        body {
+            background: #f9f9f9;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px #0001;
+            padding: 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .logo a {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #5b21b6;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            margin: 0;
+        }
+        .nav-menu li a {
+            color: #333;
+            font-size: 1.05em;
+            padding: 8px 18px;
+            border-radius: 20px;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+        .nav-menu li a.btn.btn-outline {
+            border: 1px solid #5b21b6;
+            color: #5b21b6;
+            background: #fff;
+            font-weight: 500;
+        }
+        .nav-menu li a.btn.btn-outline:hover {
+            background: #5b21b6;
+            color: #fff;
+        }
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .services {
+            padding: 60px 0 40px 0;
+        }
+        .services .container {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #0001;
+            padding: 48px 32px;
+            max-width: 1000px;
+            margin: 40px auto 0 auto;
+        }
+        .section-title {
+            color: #5b21b6;
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .section-subtitle {
+            color: #4c1d95;
+            font-size: 1.15rem;
+            margin-bottom: 32px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+            margin-top: 24px;
+        }
+        .service-card {
+            background: #f3f0ff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px #5b21b610;
+            padding: 32px 20px 28px 20px;
+            text-align: center;
+            transition: transform 0.18s, box-shadow 0.18s;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px #5b21b620;
+            background: #ede9fe;
+        }
+        .service-icon {
+            font-size: 2.5rem;
+            color: #5b21b6;
+            margin-bottom: 18px;
+        }
+        .service-card h3 {
+            font-size: 1.25rem;
+            color: #4c1d95;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .service-card p {
+            font-size: 1.05em;
+            color: #555;
+        }
+
+        .wallet {
+            margin: 40px 0 0 0;
+            padding: 40px 0 0 0;
+        }
+        .wallet .container {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #0001;
+            padding: 32px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .wallet-info span {
+            color: #888;
+            font-size: 1.1em;
+        }
+        .wallet-info h2 {
+            color: #5b21b6;
+            font-size: 2.1rem;
+            margin: 8px 0 18px 0;
+        }
+        .wallet-actions {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .btn-primary, .btn-secondary {
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-size: 1.08em;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #5b21b6;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #4c1d95;
+        }
+        .btn-secondary {
+            background: #ede9fe;
+            color: #5b21b6;
+            border: 1px solid #5b21b6;
+        }
+        .btn-secondary:hover {
+            background: #5b21b6;
+            color: #fff;
+        }
+
+        .cta {
+            margin: 60px 0 0 0;
+            padding: 40px 0;
+            background: #ede9fe;
+            text-align: center;
+        }
+        .cta h2 {
+            color: #5b21b6;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .cta p {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 18px;
+        }
+        .cta .btn-primary {
+            font-size: 1.1em;
+            padding: 12px 36px;
+        }
+
+        .footer {
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 32px 0 10px 0;
+            font-size: 1em;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: space-between;
+            max-width: 1100px;
+            margin: 0 auto 18px auto;
+        }
+        .footer-section {
+            min-width: 180px;
+            flex: 1;
+        }
+        .footer-section h3, .footer-section h4 {
+            color: #4c1d95;
+            margin-bottom: 10px;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        .footer-section ul li a {
+            color: #5b21b6;
+            text-decoration: none;
+            transition: text-decoration 0.2s;
+        }
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            text-align: center;
+            color: #5b21b6;
+            font-size: 0.98em;
+        }
+        @media (max-width: 900px) {
+            .services .container, .wallet .container {
+                padding: 24px 6px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 18px;
+            }
+        }
+        @media (max-width: 600px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Cash-E</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="help.html">Help Center</a></li>
+                <li><a href="login.html" class="btn btn-outline">Log In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h1 class="section-title">Our Services</h1>
+            <p class="section-subtitle">Explore the features that Cash-E offers to simplify your financial transactions.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3>Send Money</h3>
+                    <p>Instantly transfer money to friends and family with just a few taps.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Pay Bills</h3>
+                    <p>Pay your bills easily and on time without any hassle.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Transactions</h3>
+                    <p>Your transactions are protected with advanced security measures.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Manage Your Wallet</h3>
+                    <p>Keep track of your spending and manage your finances effectively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wallet Section -->
+    <section class="wallet">
+        <div class="container">
+            <h2>My Wallet</h2>
+            <div class="wallet-info">
+                <span>Available Balance</span>
+                <h2><span class="wallet-balance">₱0.00</span></h2>
+            </div>
+            <div class="wallet-actions">
+                <a href="add-cash.html" class="btn btn-primary">Add Cash</a>
+                <a href="withdraw-cash.html" class="btn btn-secondary">Withdraw Cash</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Experience Cash-E?</h2>
+            <p>Join us today and take control of your financial future.</p>
+            <a href="register.html" class="btn btn-primary">Create Your Account</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cash-E</h3>
+                    <p>Managing Your Money, Anytime, Anywhere.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="send-money.html">Send Money</a></li>
+                        <li><a href="pay-bills.html">Pay Bills</a></li>
+                        <li><a href="add-cash.html">Add Cash</a></li>
+                        <li><a href="withdraw-cash.html">Withdraw Cash</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="help.html">Support Center</a></li>
+                        <li><a href="security.html">Security</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            let isActive = navMenu.classList.contains('active');
+            isActive ? navMenu.classList.remove('active') : navMenu.classList.add('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
