@@ -71,25 +71,20 @@ function renderRecentTransactions() {
         </div>
     `).join('');
 }
-<<<<<<< HEAD
 renderRecentTransactions();
 
 // Place this inside your <script> tag, after the DOM is loaded
 
 window.addEventListener('DOMContentLoaded', function() {
     // Get the username from localStorage
-    const userName = localStorage.getItem('cashEUserName') || '';
-    // Update the navbar name
-    const navName = document.querySelector('.nav-username');
-    if (navName) navName.textContent = userName;
-    // Update the avatar initials
-    const navAvatar = document.querySelector('.nav-avatar');
-    if (navAvatar) navAvatar.textContent = userName ? userName.split(' ').map(w => w[0]).join('').toUpperCase() : '';
-    // Update the welcome message
-    const welcomeName = document.getElementById('welcome-name');
-    if (welcomeName) welcomeName.textContent = userName;
+    const userName = localStorage.getItem('cashEUserName') || 'User';
+    // Update all elements with .nav-username
+    document.querySelectorAll('.nav-username').forEach(el => el.textContent = userName);
+    // Update all elements with .nav-avatar
+    const initials = userName.split(' ').map(w => w[0]).join('').toUpperCase();
+    document.querySelectorAll('.nav-avatar').forEach(el => el.textContent = initials);
 
-    // Try to get the user's name from localStorage
+    // Try to get the user's name from localStorage (for cash pickup, if used)
     const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
     const pickupNameInput = document.getElementById('pickup-name');
     if (pickupNameInput && profile.fullName) {
@@ -97,20 +92,21 @@ window.addEventListener('DOMContentLoaded', function() {
         pickupNameInput.readOnly = true; // Make it not editable
     }
 
-    document.getElementById('method').addEventListener('change', function() {
-        document.getElementById('bank-details').style.display = this.value === 'bank-transfer' ? 'block' : 'none';
-        document.getElementById('pickup-details').style.display = this.value === 'cash-pickup' ? 'block' : 'none';
-        // Auto-fill recipient name if cash pickup
-        if (this.value === 'cash-pickup') {
-            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-            const pickupNameInput = document.getElementById('pickup-name');
-            if (pickupNameInput && profile.fullName) {
-                pickupNameInput.value = profile.fullName;
-                pickupNameInput.readOnly = true;
+    // Show/hide bank or pickup details based on method
+    const methodSelect = document.getElementById('method');
+    if (methodSelect) {
+        methodSelect.addEventListener('change', function() {
+            document.getElementById('bank-details').style.display = this.value === 'bank-transfer' ? 'block' : 'none';
+            document.getElementById('pickup-details').style.display = this.value === 'cash-pickup' ? 'block' : 'none';
+            // Auto-fill recipient name if cash pickup
+            if (this.value === 'cash-pickup') {
+                const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                const pickupNameInput = document.getElementById('pickup-name');
+                if (pickupNameInput && profile.fullName) {
+                    pickupNameInput.value = profile.fullName;
+                    pickupNameInput.readOnly = true;
+                }
             }
-        }
-    });
+        });
+    }
 });
-=======
-renderRecentTransactions();
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0

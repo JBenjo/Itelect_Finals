@@ -462,6 +462,7 @@
                         </a>
                         <a href="#" class="user-dropdown-item" id="logout-btn">
                             <i class="fas fa-sign-out-alt"></i> Logout
+                            href="lo
                         </a>
                     </div>
                 </li>
@@ -701,6 +702,21 @@
     document.querySelectorAll('.nav-username').forEach(el => el.textContent = userName);
     // Update all elements with .nav-avatar
     const initials = userName.split(' ').map(w => w[0]).join('').toUpperCase();
-    document.querySelectorAll('.nav-avatar').forEach(el => el.textContent = initials);4});b    </script>a</body>
+    document.querySelectorAll('.nav-avatar').forEach(el => el.textContent = initials);
+});
+    </script>
+    <script>
+window.addEventListener('DOMContentLoaded', function() {
+    // Get the username from localStorage
+    const userName = localStorage.getItem('cashEUserName') || 'User';
+    // Update the navbar name
+    const navName = document.querySelector('.nav-username');
+    if (navName) navName.textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+
+    // Update the avatar initials
+    const navAvatar = document.querySelector('.nav-avatar');
+    if (navAvatar) navAvatar.textContent = userName.split(' ').map(w => w[0]).join('').toUpperCase();
+});
+</script>
+</body>
 </html>
-ba82ae01c5ab9ca1ef0

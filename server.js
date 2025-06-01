@@ -44,11 +44,23 @@ app.get('/about.html', (req, res) => {
 app.get('/contact.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'contact.html'));
 }); 
+
 app.get('/faq.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'faq.html'));
 });
+
 app.get('/terms.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'terms.html'));
+});
+
+
+app.get('/account-settings.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'account-settings.html'));
+});
+
+
+app.get('/withdraw-cash.html',(req, res) => {
+    res.sendFile(path.join(__dirname, 'withdraw-cash.html'));
 });
 
 app.get('/privacy.html', (req, res) => {
