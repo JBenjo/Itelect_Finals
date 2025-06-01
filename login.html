@@ -38,10 +38,17 @@
             const msg = document.getElementById('login-msg');
             const user = JSON.parse(localStorage.getItem('cashEUser') || '{}');
             if (username === user.username && password === user.password) {
+<<<<<<< HEAD
                 // After successful login
                 localStorage.setItem('cashELoggedIn', 'true');
                 localStorage.setItem('cashEUserName', username); // Save the username
                 window.location.href = "dashboard.html";
+=======
+                localStorage.setItem('cashELoggedIn', 'true');
+                msg.textContent = "Login successful!";
+                msg.style.color = "green";
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 1000); // Redirect to dashboard
+>>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
             } else {
                 msg.textContent = "Invalid username or password.";
                 msg.style.color = "red";

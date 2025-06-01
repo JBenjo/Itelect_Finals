@@ -35,12 +35,18 @@
                 return;
             }
             localStorage.setItem('cashEUser', JSON.stringify({ username, password }));
+<<<<<<< HEAD
             // After successful registration
             localStorage.setItem('cashELoggedIn', 'true');
             localStorage.setItem('cashEUserName', username); // Or use full name if you collect it
             msg.textContent = "Registration successful! You can now log in.";
             msg.style.color = "green";
             setTimeout(() => { window.location.href = "dashboard.html"; }, 1200);
+=======
+            msg.textContent = "Registration successful! You can now log in.";
+            msg.style.color = "green";
+            setTimeout(() => { window.location.href = "login.html"; }, 1200);
+>>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
         }
     </script>
 </body>

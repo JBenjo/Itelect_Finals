@@ -71,6 +71,7 @@ function renderRecentTransactions() {
         </div>
     `).join('');
 }
+<<<<<<< HEAD
 renderRecentTransactions();
 
 // Place this inside your <script> tag, after the DOM is loaded
@@ -110,3 +111,6 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+=======
+renderRecentTransactions();
+>>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0

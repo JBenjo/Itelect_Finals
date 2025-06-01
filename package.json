@@ -5,7 +5,11 @@
   },
   "name": "cash-e-wallet",
   "version": "1.0.0",
+<<<<<<< HEAD
   "main": "server.js",
+=======
+  "main": "index.js",
+>>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
