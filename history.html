@@ -50,7 +50,6 @@
         </div>
     </div>
     <script>
-<<<<<<< HEAD
         // Add default transactions if none exist
         (function(){
             if (!localStorage.getItem('transactions') || JSON.parse(localStorage.getItem('transactions')).length === 0) {
@@ -88,8 +87,6 @@
                 localStorage.setItem('transactions', JSON.stringify(demoTx));
             }
         })();
-=======
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
         // Utility: format date
         function formatDate(iso) {
             const d = new Date(iso);
