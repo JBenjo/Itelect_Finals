@@ -49,7 +49,6 @@
         }
         
         .logo {
-<<<<<<< HEAD
             display: flex;
             align-items: center;
         }
@@ -66,11 +65,6 @@
             font-weight: bold;
             color: #5b21b6;
             text-decoration: none;
-=======
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #5b21b6;
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
         }
         
         .nav-menu {
@@ -440,14 +434,9 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-<<<<<<< HEAD
             <div class="logo" style="display: flex; align-items: center;">
                 <img src="public/images/logo.jpg" alt="Cash-E Logo" style="height:40px; width:auto; border-radius:50%; margin-right:10px;">
                 <a href="dashboard.html" style="font-size: 1.5rem; font-weight: bold; color: #5b21b6; text-decoration: none;">Cash-E</a>
-=======
-            <div class="logo">
-                <a href="dashboard.html">Cash-E</a>
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
             </div>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -460,13 +449,8 @@
                 <li><a href="help.html">Help</a></li>
                 <li class="user-menu">
                     <div class="user-menu-btn" id="user-menu-btn">
-<<<<<<< HEAD
                         <div class="user-avatar nav-avatar"></div>
                         <span class="user-name nav-username"></span>
-=======
-                        <div class="user-avatar">JD</div>
-                        <span class="user-name">John Doe</span>
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="user-dropdown" id="user-dropdown">
@@ -701,11 +685,7 @@
                 `Send ${formatCurrency(amount)} to ${recipient} for ${purpose}?` : 
                 `Send ${formatCurrency(amount)} to ${recipient}?`;
 
-<<<<<<< HEAD
             if (confirmMessage) {
-=======
-            if (confirm(confirmMessage)) {
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
                 // After successfully sending money
                 deductFromBalance(total);
                 saveTransaction("sent", `Sent to ${recipient}`, -total);
@@ -714,16 +694,13 @@
                 window.location.href = 'dashboard.html';
             }
         });
-<<<<<<< HEAD
 
         window.addEventListener('DOMContentLoaded', function() {
     const userName = localStorage.getItem('cashEUserName') || 'User';
+    // Update all elements with .nav-username
     document.querySelectorAll('.nav-username').forEach(el => el.textContent = userName);
+    // Update all elements with .nav-avatar
     const initials = userName.split(' ').map(w => w[0]).join('').toUpperCase();
-    document.querySelectorAll('.nav-avatar').forEach(el => el.textContent = initials);
-});
-=======
->>>>>>> d8484320019db9853853aba82ae01c5ab9ca1ef0
-    </script>
-</body>
+    document.querySelectorAll('.nav-avatar').forEach(el => el.textContent = initials);4});b    </script>a</body>
 </html>
+ba82ae01c5ab9ca1ef0
