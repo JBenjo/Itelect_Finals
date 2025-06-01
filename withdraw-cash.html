@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Cash - Cash-E</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming a common stylesheet -->
+    <style>
+        body {
+            background: #f9f9f9;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px #0001;
+            padding: 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .logo a {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #5b21b6;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            margin: 0;
+        }
+        .nav-menu li a {
+            color: #333;
+            font-size: 1.05em;
+            padding: 8px 18px;
+            border-radius: 20px;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+        .nav-menu li a.btn.btn-outline {
+            border: 1px solid #5b21b6;
+            color: #5b21b6;
+            background: #fff;
+            font-weight: 500;
+        }
+        .nav-menu li a.btn.btn-outline:hover {
+            background: #5b21b6;
+            color: #fff;
+        }
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .withdraw-cash {
+            padding: 60px 0 40px 0;
+        }
+        .withdraw-cash .container {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #0001;
+            padding: 48px 32px;
+            max-width: 500px;
+            margin: 40px auto 0 auto;
+        }
+        .withdraw-cash h1 {
+            color: #5b21b6;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .withdraw-cash p {
+            color: #555;
+            margin-bottom: 28px;
+            font-size: 1.08em;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #4c1d95;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1.05em;
+            background: #f9f9fc;
+            transition: border 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border: 1.5px solid #5b21b6;
+            outline: none;
+        }
+        .btn-primary {
+            background: #5b21b6;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+        .btn-primary:hover {
+            background: #4c1d95;
+        }
+        .footer {
+            background: #ede9fe;
+            color: #5b21b6;
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-size: 1em;
+            margin-top: 40px;
+        }
+        @media (max-width: 600px) {
+            .withdraw-cash .container {
+                padding: 24px 8px;
+            }
+            .navbar .container {
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+            }
+            .nav-menu {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Cash-E</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="help.html">Help Center</a></li>
+                <li><a href="login.html" class="btn btn-outline">Log In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Withdraw Cash Section -->
+    <section class="withdraw-cash">
+        <div class="container">
+            <a href="dashboard.html" style="display:inline-block;margin-bottom:18px;color:#5b21b6;text-decoration:underline;">&larr; Back to Dashboard</a>
+            <h1>Withdraw Cash</h1>
+            <p>Follow the steps below to withdraw cash from your Cash-E wallet.</p>
+            <form id="withdraw-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="amount">Amount to Withdraw:</label>
+                    <input type="number" id="amount" name="amount" min="1" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="method">Withdrawal Method:</label>
+                    <select id="method" name="method" required>
+                        <option value="">Select Method</option>
+                        <option value="bank-transfer">Bank Transfer</option>
+                        <option value="cash-pickup">Cash Pickup</option>
+                    </select>
+                </div>
+                <div class="form-group" id="bank-details" style="display:none;">
+                    <label for="bank-name">Bank Name:</label>
+                    <input type="text" id="bank-name" placeholder="Enter your bank name">
+                    <label for="bank-account">Account Number:</label>
+                    <input type="text" id="bank-account" placeholder="Enter your account number">
+                </div>
+                <div class="form-group" id="pickup-details" style="display:none;">
+                    <label for="pickup-location">Pickup Location:</label>
+                    <input type="text" id="pickup-location" placeholder="Enter pickup location">
+                    <label for="pickup-name">Recipient Name:</label>
+                    <input type="text" id="pickup-name" placeholder="Enter recipient name">
+                </div>
+                <button type="submit" class="btn btn-primary">Withdraw</button>
+                <div id="withdraw-msg" style="margin-top:12px;min-height:20px;"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Utility functions (shared with send money, pay bills, add cash)
+        function getBalance() {
+            return parseFloat(localStorage.getItem('walletBalance') || '0');
+        }
+        function deductFromBalance(amount) {
+            let balance = getBalance();
+            balance -= amount;
+            localStorage.setItem('walletBalance', balance);
+        }
+        function saveTransaction(type, title, amount, status = "Success") {
+            let tx = JSON.parse(localStorage.getItem('transactions') || '[]');
+            tx.push({
+                type,
+                title,
+                amount: -Math.abs(amount),
+                status,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('transactions', JSON.stringify(tx));
+        }
+        function formatCurrency(amount) {
+            return '₱' + Number(amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+        }
+
+        // Show/hide details based on method
+        document.getElementById('method').addEventListener('change', function() {
+            document.getElementById('bank-details').style.display = this.value === 'bank-transfer' ? 'block' : 'none';
+            document.getElementById('pickup-details').style.display = this.value === 'cash-pickup' ? 'block' : 'none';
+        });
+
+        // Withdraw form functionality
+        document.getElementById('withdraw-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('amount').value);
+            const method = document.getElementById('method').value;
+            const msg = document.getElementById('withdraw-msg');
+            let details = "";
+
+            if (amount < 1 || isNaN(amount)) {
+                msg.textContent = "Please enter a valid amount (minimum ₱1).";
+                msg.style.color = "red";
+                return;
+            }
+            if (amount > getBalance()) {
+                msg.textContent = "Insufficient wallet balance.";
+                msg.style.color = "red";
+                return;
+            }
+            if (!method) {
+                msg.textContent = "Please select a withdrawal method.";
+                msg.style.color = "red";
+                return;
+            }
+            if (method === "bank-transfer") {
+                const bankName = document.getElementById('bank-name').value.trim();
+                const bankAccount = document.getElementById('bank-account').value.trim();
+                if (!bankName || !bankAccount) {
+                    msg.textContent = "Please enter your bank name and account number.";
+                    msg.style.color = "red";
+                    return;
+                }
+                details = `Bank: ${bankName}, Account: ${bankAccount}`;
+            }
+            if (method === "cash-pickup") {
+                const pickupLocation = document.getElementById('pickup-location').value.trim();
+                const pickupName = document.getElementById('pickup-name').value.trim();
+                if (!pickupLocation || !pickupName) {
+                    msg.textContent = "Please enter pickup location and recipient name.";
+                    msg.style.color = "red";
+                    return;
+                }
+                details = `Pickup: ${pickupLocation}, Recipient: ${pickupName}`;
+            }
+
+            // Confirm
+            if (!confirm(`Withdraw ${formatCurrency(amount)} via ${method === "bank-transfer" ? "Bank Transfer" : "Cash Pickup"}?`)) {
+                return;
+            }
+
+            // Deduct and save transaction
+            deductFromBalance(amount);
+            saveTransaction("withdraw", `Withdraw via ${method === "bank-transfer" ? "Bank Transfer" : "Cash Pickup"} (${details})`, amount, "Success");
+
+            msg.textContent = "Withdrawal successful!";
+            msg.style.color = "green";
+            // Reset form
+            this.reset();
+            document.getElementById('bank-details').style.display = 'none';
+            document.getElementById('pickup-details').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - Cash-E</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header Styles */
+        .header {
+            padding: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #5b21b6;
+            margin-bottom: 16px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .user-profile {
+            padding: 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #5b21b6;
+            margin-right: 16px;
+        }
+        
+        .user-info h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .user-info p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .sidebar-menu {
+            padding: 8px;
+        }
+        
+        .sidebar-menu button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: none;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu button:hover {
+            background-color: #f3f0ff;
+        }
+        
+        .sidebar-menu button.active {
+            background-color: #f3f0ff;
+            color: #5b21b6;
+        }
+        
+        .sidebar-menu button i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Content Styles */
+        .content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+        
+        .content-title {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .form-text {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: #5b21b6;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4c1d95;
+        }
+        
+        .btn-primary i {
+            margin-right: 8px;
+        }
+        
+        /* Password Field */
+        .password-field {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        /* Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #5b21b6;
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px #5b21b6;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Notification Settings */
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .notification-info p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        /* Payment Methods */
+        .payment-card {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .payment-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        
+        .payment-icon i {
+            color: #5b21b6;
+            font-size: 1.25rem;
+        }
+        
+        .payment-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .payment-info p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .payment-badge {
+            margin-left: auto;
+            padding: 4px 8px;
+            background-color: #e6f7e6;
+            color: #2e7d32;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .add-new {
+            display: inline-flex;
+            align-items: center;
+            color: #5b21b6;
+            font-weight: 500;
+            margin-top: 16px;
+        }
+        
+        .add-new:hover {
+            text-decoration: underline;
+        }
+        
+        .add-new i {
+            margin-right: 4px;
+        }
+        
+        /* Verification Status */
+        .status-card {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        
+        .status-icon.completed {
+            background-color: #e6f7e6;
+        }
+        
+        .status-icon.in-progress {
+            background-color: #fff8e1;
+        }
+        
+        .status-icon.not-started {
+            background-color: #f5f5f5;
+        }
+        
+        .status-icon.completed i {
+            color: #2e7d32;
+        }
+        
+        .status-icon.in-progress i {
+            color: #f57c00;
+        }
+        
+        .status-icon.not-started i {
+            color: #757575;
+        }
+        
+        .status-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .status-info p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .status-badge {
+            margin-left: auto;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-badge.completed {
+            background-color: #e6f7e6;
+            color: #2e7d32;
+        }
+        
+        .status-badge.in-progress {
+            background-color: #fff8e1;
+            color: #f57c00;
+        }
+        
+        .status-badge.not-started {
+            background-color: #f5f5f5;
+            color: #757575;
+        }
+        
+        /* Alert */
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .alert-success {
+            background-color: #e6f7e6;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .alert i {
+            margin-right: 12px;
+            font-size: 1.25rem;
+        }
+        
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .settings-container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            
+            .sidebar {
+                width: 280px;
+                position: sticky;
+                top: 20px;
+            }
+            
+            .content {
+                flex: 1;
+            }
+            
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            display: inline-block;
+            margin-left: 24px;
+        }
+        
+        .nav-menu a {
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #5b21b6;
+        }
+        
+        .btn-outline {
+            border: 1px solid #5b21b6;
+            color: #5b21b6;
+            padding: 8px 16px;
+            border-radius: 9999px;
+        }
+        
+        .btn-outline:hover {
+            background-color: #5b21b6;
+            color: white;
+        }
+        
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #111;
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section p {
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #aaa;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Cash-E</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="help.html">Help Center</a></li>
+                <li><a href="login.html" class="btn btn-outline">Log In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1 class="page-title">Account Settings</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="settings-container">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar">JD</div>
+                        <div class="user-info">
+                            <h3>John Doe</h3>
+                            <p>Premium Member</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <button class="active" data-tab="profile">
+                            <i class="fas fa-user"></i> Profile Information
+                        </button>
+                        <button data-tab="security">
+                            <i class="fas fa-lock"></i> Security
+                        </button>
+                        <button data-tab="notifications">
+                            <i class="fas fa-bell"></i> Notifications
+                        </button>
+                        <button data-tab="payment">
+                            <i class="fas fa-credit-card"></i> Payment Methods
+                        </button>
+                        <button data-tab="verification">
+                            <i class="fas fa-shield-alt"></i> Verification
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="content">
+                    <!-- Profile Information -->
+                    <div class="tab-content" id="profile-tab">
+                        <h2 class="content-title">Profile Information</h2>
+                        <form id="profile-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" id="fullName" name="fullName" class="form-control" value="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" id="email" name="email" class="form-control" value="johndoe@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobile" class="form-label">Mobile Number</label>
+                                    <input type="tel" id="mobile" name="mobile" class="form-control" value="09123456789" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthdate" class="form-label">Birthdate</label>
+                                    <input type="date" id="birthdate" name="birthdate" class="form-control" value="1990-01-01" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" id="address" name="address" class="form-control" value="123 Main Street, Makati City" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Security -->
+                    <div class="tab-content" id="security-tab" style="display: none;">
+                        <h2 class="content-title">Security Settings</h2>
+                        <form id="security-form">
+                            <div class="form-group">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
+                                    <button type="button" class="password-toggle" data-target="currentPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                                    <button type="button" class="password-toggle" data-target="newPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <p class="form-text">Password must be at least 8 characters with letters, numbers, and special characters</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                                    <button type="button" class="password-toggle" data-target="confirmPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h3 class="content-title">Two-Factor Authentication</h3>
+                                <div class="status-card">
+                                    <div class="status-info">
+                                        <h4>Enable Two-Factor Authentication</h4>
+                                        <p>Add an extra layer of security to your account by requiring a verification code</p>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" style="background-color: #f3f0ff; color: #5b21b6;">Setup</button>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Password
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="tab-content" id="notifications-tab" style="display: none;">
+                        <h2 class="content-title">Notification Settings</h2>
+                        <form id="notifications-form">
+                            <div class="form-group">
+                                <h3 class="content-title">Email Notifications</h3>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <h4>Transaction Updates</h4>
+                                        <p>Receive emails about your transactions, transfers, and bills</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" name="emailTransactions" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <h4>Promotions and Offers</h4>
+                                        <p>Receive emails about promotions, discounts, and special offers</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" name="emailPromotions">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h3 class="content-title">Push Notifications</h3>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <h4>Transaction Updates</h4>
+                                        <p>Receive push notifications about your transactions and account activity</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" name="pushTransactions" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <h4>Promotions and Offers</h4>
+                                        <p>Receive push notifications about promotions and special offers</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" name="pushPromotions" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h3 class="content-title">SMS Notifications</h3>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <h4>Transaction Updates</h4>
+                                        <p>Receive SMS notifications about your transactions and account activity</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" name="smsTransactions" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <h4>Promotions and Offers</h4>
+                                        <p>Receive SMS notifications about promotions and special offers</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" name="smsPromotions">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Preferences
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="tab-content" id="payment-tab" style="display: none;">
+                        <h2 class="content-title">Payment Methods</h2>
+
+                        <div class="form-group">
+                            <h3 class="content-title">Linked Cards</h3>
+                            <div class="payment-card">
+                                <div class="payment-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="payment-info">
+                                    <h4>Visa ending in 4567</h4>
+                                    <p>Expires 12/25</p>
+                                </div>
+                                <span class="payment-badge">Default</span>
+                            </div>
+                            <div class="payment-card">
+                                <div class="payment-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="payment-info">
+                                    <h4>Mastercard ending in 8901</h4>
+                                    <p>Expires 08/24</p>
+                                </div>
+                            </div>
+                            <a href="#" class="add-new">
+                                <i class="fas fa-plus"></i> Add New Card
+                            </a>
+                        </div>
+
+                        <div class="form-group">
+                            <h3 class="content-title">Linked Bank Accounts</h3>
+                            <div class="payment-card">
+                                <div class="payment-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="payment-info">
+                                    <h4>BDO Savings Account</h4>
+                                    <p>Account ending in 3456</p>
+                                </div>
+                            </div>
+                            <a href="#" class="add-new">
+                                <i class="fas fa-plus"></i> Link Bank Account
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Verification -->
+                    <div class="tab-content" id="verification-tab" style="display: none;">
+                        <h2 class="content-title">Account Verification</h2>
+
+                        <div class="alert alert-success">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <p><strong>Your account is verified</strong></p>
+                                <p>You have completed the basic verification process.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3 class="content-title">Verification Status</h3>
+                            <div class="status-card">
+                                <div class="status-icon completed">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="status-info">
+                                    <h4>Basic Verification</h4>
+                                    <p>Email and mobile number verified</p>
+                                </div>
+                                <span class="status-badge completed">Completed</span>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-icon in-progress">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="status-info">
+                                    <h4>Advanced Verification</h4>
+                                    <p>ID verification and personal information</p>
+                                </div>
+                                <span class="status-badge in-progress">In Progress</span>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-icon not-started">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="status-info">
+                                    <h4>Premium Verification</h4>
+                                    <p>Additional documents for higher limits</p>
+                                </div>
+                                <span class="status-badge not-started">Not Started</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3 class="content-title">Complete Your Verification</h3>
+                            <p>To unlock higher transaction limits and additional features, please complete the advanced verification process.</p>
+                            <button type="button" class="btn btn-primary" style="margin-top: 16px;">
+                                Continue Verification
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Placeholders -->
+    <div style="display: none;">
+        <!-- Placeholder 1: User Profile Image -->
+        <img id="user-profile-image" src="https://via.placeholder.com/150" alt="User Profile">
+        
+        <!-- Placeholder 2: ID Verification Image -->
+        <img id="id-verification-image" src="https://via.placeholder.com/300x200" alt="ID Verification">
+        
+        <!-- Placeholder 3: Card Image -->
+        <img id="card-image" src="https://via.placeholder.com/400x250" alt="Credit Card">
+    </div>
+
+    <!-- External Link Placeholder -->
+    <a id="external-resource-link" href="https://example.com/resources/financial-tips.pdf" style="display: none;">Financial Tips PDF</a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cash-E</h3>
+                    <p>Managing Your Money, Anytime, Anywhere.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="send-money.html">Send Money</a></li>
+                        <li><a href="pay-bills.html">Pay Bills</a></li>
+                        <li><a href="history.html">Transaction History</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="help.html">Support Center</a></li>
+                        <li><a href="security.html">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Tab switching
+        const tabButtons = document.querySelectorAll('.sidebar-menu button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => content.style.display = 'none');
+                
+                // Show the selected tab content
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).style.display = 'block';
+            });
+        });
+
+        // Password toggle
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        
+        passwordToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+                
+                // Toggle password visibility
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordInput.type = 'password';
+                    this.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            });
+        });
+
+        // Load profile info from localStorage
+        function loadProfile() {
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            if (profile.fullName) document.getElementById('fullName').value = profile.fullName;
+            if (profile.email) document.getElementById('email').value = profile.email;
+            if (profile.mobile) document.getElementById('mobile').value = profile.mobile;
+            if (profile.birthdate) document.getElementById('birthdate').value = profile.birthdate;
+            if (profile.address) document.getElementById('address').value = profile.address;
+
+            // Update sidebar
+            document.querySelector('.user-avatar').textContent = profile.fullName ? getInitials(profile.fullName) : 'JD';
+            document.querySelector('.user-info h3').textContent = profile.fullName || 'John Doe';
+            document.querySelector('.user-info p').textContent = profile.membership || 'Premium Member';
+        }
+
+        // Get initials from name
+        function getInitials(name) {
+            return name.split(' ').map(w => w[0]).join('').toUpperCase();
+        }
+
+        // Save profile info to localStorage and update sidebar
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // ...existing validation code...
+
+            // If valid, save to localStorage and update sidebar
+            if (isValid) {
+                const profile = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    mobile: document.getElementById('mobile').value,
+                    birthdate: document.getElementById('birthdate').value,
+                    address: document.getElementById('address').value,
+                    membership: 'Premium Member'
+                };
+                localStorage.setItem('userProfile', JSON.stringify(profile));
+                loadProfile();
+                alert("Profile updated successfully!");
+            } else {
+                alert("Error: " + errorMessage);
+            }
+        });
+
+        // On page load, load profile info
+        window.addEventListener('load', function() {
+            loadProfile();
+            loadExternalResources();
+        });
+
+        // Form validation with JavaScript operators
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+            const address = document.getElementById('address').value;
+            
+            // Operator 1: Assignment operator (=)
+            let isValid = true;
+            let errorMessage = "";
+            
+            // Operator 2: Comparison operator (===)
+            if (fullName === "") {
+                isValid = false;
+                errorMessage = "Full name is required";
+            } 
+            // Operator 3: Logical AND (&&)
+            else if (fullName.length < 3 && fullName.length > 0) {
+                isValid = false;
+                errorMessage = "Full name must be at least 3 characters";
+            }
+            
+            // Operator 4: Logical OR (||)
+            if (email === "" || !email.includes('@')) {
+                isValid = false;
+                errorMessage = "Please enter a valid email address";
+            }
+            
+            // Operator 5: String concatenation (+)
+            if (mobile === "") {
+                isValid = false;
+                errorMessage = "Mobile number is required";
+            } else if (mobile.length !== 11) {
+                isValid = false;
+                errorMessage = "Mobile number must be 11 digits. You entered " + mobile.length + " digits.";
+            }
+            
+            // Operator 6: Ternary operator (? :)
+            address.length < 10 ? (isValid = false, errorMessage = "Please enter your complete address") : null;
+            
+            // Operator 7: Arithmetic operator (-)
+            const today = new Date();
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const age = Math.floor((today - birthdate) / (365.25 * 24 * 60 * 60 * 1000));
+            
+            if (age < 18) {
+                isValid = false;
+                errorMessage = "You must be at least 18 years old to use Cash-E";
+            }
+            
+            if (isValid) {
+                alert("Profile updated successfully!");
+            } else {
+                alert("Error: " + errorMessage);
+            }
+        });
+
+        // Security form validation
+        document.getElementById('security-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (currentPassword === "") {
+                alert("Please enter your current password");
+                return;
+            }
+            
+            if (newPassword === "") {
+                alert("Please enter a new password");
+                return;
+            }
+            
+            // Password strength validation
+            const hasLetter = /[a-zA-Z]/.test(newPassword);
+            const hasNumber = /[0-9]/.test(newPassword);
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(newPassword);
+            
+            if (newPassword.length < 8) {
+                alert("Password must be at least 8 characters long");
+                return;
+            }
+            
+            if (!(hasLetter && hasNumber && hasSpecial)) {
+                alert("Password must contain letters, numbers, and special characters");
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert("New passwords do not match");
+                return;
+            }
+            
+            alert("Password updated successfully!");
+        });
+
+        // Notifications form validation
+        document.getElementById('notifications-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Count enabled notifications
+            const emailTransactions = document.querySelector('input[name="emailTransactions"]').checked;
+            const emailPromotions = document.querySelector('input[name="emailPromotions"]').checked;
+            const pushTransactions = document.querySelector('input[name="pushTransactions"]').checked;
+            const pushPromotions = document.querySelector('input[name="pushPromotions"]').checked;
+            const smsTransactions = document.querySelector('input[name="smsTransactions"]').checked;
+            const smsPromotions = document.querySelector('input[name="smsPromotions"]').checked;
+            
+            // Count enabled notifications using arithmetic operator (+)
+            const enabledCount = emailTransactions + emailPromotions + pushTransactions + pushPromotions + smsTransactions + smsPromotions;
+            
+            if (enabledCount === 0) {
+                alert("Warning: You have disabled all notifications. You may miss important updates about your account.");
+            } else {
+                alert("Notification preferences saved successfully!");
+            }
+        });
+
+        // Load external resources
+        function loadExternalResources() {
+            // This is a placeholder function that would normally load external resources
+            console.log("Loading external resources from: " + document.getElementById('external-resource-link').href);
+            
+            // Load user profile image
+            const userProfileImage = document.getElementById('user-profile-image');
+            if (userProfileImage.complete) {
+                console.log("User profile image loaded successfully");
+            } else {
+                console.log("Loading user profile image...");
+            }
+        }
+
+        // Call the function when page loads
+        window.addEventListener('load', loadExternalResources);
+    </script>
+</body>
+</html>

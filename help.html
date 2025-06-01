@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - Cash-E</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(to right, #5b21b6, #4c1d95);
+            color: white;
+            padding: 60px 0;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 24px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border-radius: 9999px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #5b21b6;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        /* Topics Grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        .topic-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topic-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .topic-icon i {
+            color: #5b21b6;
+            font-size: 1.25rem;
+        }
+        
+        .topic-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .topic-card p {
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .learn-more {
+            display: inline-flex;
+            align-items: center;
+            color: #5b21b6;
+            font-weight: 500;
+        }
+        
+        .learn-more:hover {
+            text-decoration: underline;
+        }
+        
+        .learn-more i {
+            margin-left: 4px;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background-color: white;
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 16px;
+        }
+        
+        .faq-question {
+            padding: 16px;
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .faq-question:hover {
+            color: #5b21b6;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 16px 16px;
+            color: #666;
+            display: none;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        .view-all {
+            display: inline-flex;
+            align-items: center;
+            color: #5b21b6;
+            font-weight: 500;
+            margin-top: 24px;
+        }
+        
+        .view-all:hover {
+            text-decoration: underline;
+        }
+        
+        .view-all i {
+            margin-left: 4px;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            margin-bottom: 60px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        
+        .contact-icon i {
+            color: #5b21b6;
+            font-size: 1.5rem;
+        }
+        
+        .contact-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .contact-card p {
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .contact-info {
+            font-weight: 500;
+            color: #5b21b6;
+            margin-bottom: 16px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #5b21b6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4c1d95;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        /* Resources Section */
+        .resources-section {
+            background: linear-gradient(to right, #5b21b6, #4c1d95);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .resource-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 32px;
+            transition: background-color 0.3s;
+        }
+        
+        .resource-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .resource-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+        
+        .resource-card p {
+            opacity: 0.8;
+        }
+        
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .topics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .resources-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .topics-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            display: inline-block;
+            margin-left: 24px;
+        }
+        
+        .nav-menu a {
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #5b21b6;
+        }
+        
+        .btn-outline {
+            border: 1px solid #5b21b6;
+            color: #5b21b6;
+            padding: 8px 16px;
+            border-radius: 9999px;
+        }
+        
+        .btn-outline:hover {
+            background-color: #5b21b6;
+            color: white;
+        }
+        
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #111;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section p {
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #aaa;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="public/images/logo.jpg" alt="Cash-E Logo" style="height:40px; width:auto; border-radius:50%; margin-right:10px;">
+                <a href="index.html" style="font-size: 1.5rem; font-weight: bold; color: #5b21b6; text-decoration: none;">Cash-E</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="help.html">Help Center</a></li>
+               
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <h1>Help Center</h1>
+            <p>Find answers to your questions about Cash-E</p>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search for help articles..." id="search-input">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Popular Topics -->
+            <section>
+                <h2 class="section-title">Popular Topics</h2>
+                <div class="topics-grid">
+                    <a href="help/account.html" class="topic-card">
+                        <div class="topic-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Account Management</h3>
+                        <p>Learn how to manage your Cash-E account, update your profile, and change your settings.</p>
+                        <span class="learn-more">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="help/payments.html" class="topic-card">
+                        <div class="topic-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Payments & Transfers</h3>
+                        <p>Find out how to send money, pay bills, and make other transactions with Cash-E.</p>
+                        <span class="learn-more">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="help/security.html" class="topic-card">
+                        <div class="topic-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security & Privacy</h3>
+                        <p>Understand how we protect your account and what you can do to enhance your security.</p>
+                        <span class="learn-more">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="help/fees.html" class="topic-card">
+                        <div class="topic-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3>Fees & Limits</h3>
+                        <p>Learn about transaction fees, withdrawal limits, and other financial details.</p>
+                        <span class="learn-more">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="help/troubleshooting.html" class="topic-card">
+                        <div class="topic-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>Troubleshooting</h3>
+                        <p>Find solutions to common issues and problems you might encounter while using Cash-E.</p>
+                        <span class="learn-more">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="help/contact.html" class="topic-card">
+                        <div class="topic-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Contact Support</h3>
+                        <p>Get in touch with our customer support team for personalized assistance.</p>
+                        <span class="learn-more">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>How do I create a Cash-E account?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To create a Cash-E account, download our mobile app from the App Store or Google Play, or visit our website and click on 'Register'. Follow the prompts to enter your personal information, verify your email and mobile number, and set up your security credentials.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>How do I add money to my Cash-E wallet?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can add money to your Cash-E wallet through bank transfers, credit/debit cards, or by visiting our partner establishments for over-the-counter deposits. In the app, go to 'Add Cash' and follow the instructions for your preferred method.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is there a fee for sending money?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Cash-E to Cash-E transfers are free. Transfers to bank accounts or other e-wallets may incur a small fee depending on the amount and destination. You can view our complete fee schedule in the app or on our website.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>What should I do if I forget my password?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you forget your password, tap on 'Forgot Password' on the login screen. We'll send a password reset link to your registered email address. Follow the instructions to create a new password.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>How do I increase my transaction limits?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To increase your transaction limits, you need to complete the advanced verification process. Go to Account Settings > Verification and follow the instructions to submit the required documents. Once verified, your limits will be automatically increased.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 24px;">
+                    <a href="help/faq.html" class="view-all">
+                        View All FAQs <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <p>Our customer support team is available 24/7 to assist you.</p>
+                        <p class="contact-info">1-800-CASH-E (1-800-2274-3)</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our support team directly from the Cash-E app.</p>
+                        <p class="contact-info">Available 24/7</p>
+                        <a href="help/chat.html" class="btn btn-primary">Start Chat</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <p>Send us an email and we'll get back to you within 24 hours.</p>
+                        <p class="contact-info">support@cash-e.com</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3 class="form-title">Send Us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select id="subject" name="subject" class="form-control" required>
+                                <option value="">Select a topic</option>
+                                <option value="account">Account Issues</option>
+                                <option value="transaction">Transaction Problems</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Describe your issue or question in detail" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section class="resources-section">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Additional Resources</h2>
+                <div class="resources-grid">
+                    <a href="help/guides.html" class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>User Guides</h3>
+                        <p>Step-by-step guides to help you make the most of Cash-E</p>
+                    </a>
+                    <a href="help/videos.html" class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Video Tutorials</h3>
+                        <p>Watch tutorials on how to use Cash-E features</p>
+                    </a>
+                    <a href="help/community.html" class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community Forum</h3>
+                        <p>Connect with other Cash-E users and share experiences</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Image Placeholders -->
+    <div style="display: none;">
+        <!-- Placeholder 1: Help Center Banner -->
+        <img id="help-center-banner" src="https://via.placeholder.com/1200x400" alt="Help Center Banner">
+        
+        <!-- Placeholder 2: Support Team Image -->
+        <img id="support-team-image" src="https://via.placeholder.com/600x400" alt="Our Support Team">
+        
+        <!-- Placeholder 3: Mobile App Screenshot -->
+        <img id="app-screenshot" src="https://via.placeholder.com/300x600" alt="Cash-E Mobile App">
+    </div>
+
+    <!-- External Link Placeholder -->
+    <a id="external-resource-link" href="https://example.com/resources/user-manual.pdf" style="display: none;">Cash-E User Manual</a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cash-E</h3>
+                    <p>Managing Your Money, Anytime, Anywhere.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="send-money.html">Send Money</a></li>
+                        <li><a href="pay-bills.html">Pay Bills</a></li>
+                        <li><a href="history.html">Transaction History</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="help.html">Support Center</a></li>
+                        <li><a href="security.html">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // FAQ toggle
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const isActive = element.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-question').forEach(item => {
+                item.classList.remove('active');
+                item.nextElementSibling.classList.remove('show');
+            });
+            
+            // If the clicked FAQ wasn't active, open it
+            if (!isActive) {
+                element.classList.add('active');
+                answer.classList.add('show');
+            }
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        
+        searchInput.addEventListener('keyup', function(event) {
+            // Check if Enter key was pressed
+            if (event.key === 'Enter') {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                
+                if (searchTerm.length > 0) {
+                    // In a real app, this would search the help articles
+                    alert('Searching for: ' + searchTerm);
+                    
+                    // For demonstration purposes, let's validate the search term
+                    validateSearchTerm(searchTerm);
+                }
+            }
+        });
+
+        // Validation function using multiple operators
+        function validateSearchTerm(term) {
+            // Operator 1: Assignment operator (=)
+            let isValid = true;
+            let message = "";
+            
+            // Operator 2: Comparison operator (===)
+            if (term === "") {
+                isValid = false;
+                message = "Please enter a search term";
+            } 
+            // Operator 3: Logical AND (&&)
+            else if (term.length < 3 && term.length > 0) {
+                isValid = false;
+                message = "Search term must be at least 3 characters";
+            }
+            
+            // Operator 4: Logical OR (||)
+            if (term.includes('!') || term.includes('@') || term.includes('#')) {
+                isValid = false;
+                message = "Search term contains invalid characters";
+            }
+            
+            // Operator 5: Ternary operator (? :)
+            const searchCategory = term.includes('account') ? 'account' : 
+                                  term.includes('payment') ? 'payment' : 
+                                  term.includes('security') ? 'security' : 'general';
+            
+            if (isValid) {
+                // Operator 6: String concatenation (+)
+                alert("Valid search in category: " + searchCategory);
+            } else {
+                alert("Error: " + message);
+            }
+        }
+
+        // Contact form validation
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Validate form using multiple operators
+            if (fullName.length < 3) {
+                alert("Full name must be at least 3 characters");
+                return;
+            }
+            
+            if (!email.includes('@') || !email.includes('.')) {
+                alert("Please enter a valid email address");
+                return;
+            }
+            
+            if (subject === "") {
+                alert("Please select a subject");
+                return;
+            }
+            
+            // Operator 7: Arithmetic operator (-)
+            if (message.length - 10 < 0) {
+                alert("Message must be at least 10 characters");
+                return;
+            }
+            
+            alert("Thank you for your message! Our support team will get back to you within 24 hours.");
+        });
+
+        // Load external resources
+        function loadExternalResources() {
+            // This is a placeholder function that would normally load external resources
+            console.log("Loading external resources from: " + document.getElementById('external-resource-link').href);
+            
+            // Load help center banner
+            const helpCenterBanner = document.getElementById('help-center-banner');
+            if (helpCenterBanner.complete) {
+                console.log("Help center banner loaded successfully");
+            } else {
+                console.log("Loading help center banner...");
+            }
+        }
+
+        // Call the function when page loads
+        window.addEventListener('load', loadExternalResources);
+    </script>
+</body>
+</html>

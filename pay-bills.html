@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Bills - Cash-E</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            display: inline-block;
+            margin-left: 24px;
+        }
+        
+        .nav-menu a {
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #5b21b6;
+        }
+        
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .user-name {
+            margin-right: 8px;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-dropdown-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .user-dropdown-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .user-dropdown-item i {
+            margin-right: 12px;
+            width: 16px;
+            color: #666;
+        }
+        
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Header Styles */
+        .header {
+            padding: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #5b21b6;
+            margin-bottom: 16px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        /* Pay Bills Form */
+        .pay-bills-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .form-title {
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .form-text {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px 12px;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .biller-categories {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 8px 0;
+            margin-bottom: 16px;
+        }
+        
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+            cursor: pointer;
+        }
+        
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        
+        .category-icon i {
+            color: #5b21b6;
+        }
+        
+        .category-name {
+            font-size: 0.75rem;
+            text-align: center;
+            color: #333;
+        }
+        
+        .biller-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .biller-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        
+        .biller-item:hover {
+            border-color: #5b21b6;
+            background-color: #f9f7ff;
+        }
+        
+        .biller-item.selected {
+            border-color: #5b21b6;
+            background-color: #f3f0ff;
+        }
+        
+        .biller-logo {
+            width: 32px;
+            height: 32px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .biller-logo i {
+            color: #5b21b6;
+            font-size: 0.875rem;
+        }
+        
+        .biller-name {
+            font-size: 0.875rem;
+            color: #333;
+        }
+        
+        .amount-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .amount-input:focus-within {
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .currency-symbol {
+            font-weight: 500;
+            color: #333;
+            margin-right: 8px;
+        }
+        
+        .amount-control {
+            flex: 1;
+            border: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        
+        .amount-control:focus {
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: #5b21b6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4c1d95;
+        }
+        
+        .btn-secondary {
+            background-color: #f3f0ff;
+            color: #5b21b6;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e9d5ff;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .summary-item:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            font-weight: 500;
+        }
+        
+        .summary-label {
+            color: #666;
+        }
+        
+        .summary-value {
+            color: #333;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #111;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="dashboard.html">Cash-E</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html">Transactions</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li class="user-menu">
+                    <div class="user-menu-btn" id="user-menu-btn">
+                        <div class="user-avatar">JD</div>
+                        <span class="user-name nav-username"></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <a href="account-settings.html" class="user-dropdown-item">
+                            <i class="fas fa-user"></i> Account Settings
+                        </a>
+                        <a href="security.html" class="user-dropdown-item">
+                            <i class="fas fa-shield-alt"></i> Security
+                        </a>
+                        <a href="#" class="user-dropdown-item" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1 class="page-title">Pay Bills</h1>
+            <p class="page-subtitle">Pay your bills quickly and securely</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="pay-bills-container">
+                <div class="form-card">
+                    <h2 class="form-title">Select Biller</h2>
+                    <div class="form-group">
+                        <label class="form-label">Categories</label>
+                        <div class="biller-categories">
+                            <div class="category-item" data-category="utilities">
+                                <div class="category-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <span class="category-name">Utilities</span>
+                            </div>
+                            <div class="category-item" data-category="telecom">
+                                <div class="category-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <span class="category-name">Telecom</span>
+                            </div>
+                            <div class="category-item" data-category="credit-card">
+                                <div class="category-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <span class="category-name">Credit Card</span>
+                            </div>
+                            <div class="category-item" data-category="loans">
+                                <div class="category-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <span class="category-name">Loans</span>
+                            </div>
+                            <div class="category-item" data-category="insurance">
+                                <div class="category-icon">
+                                    <i class="fas fa-umbrella"></i>
+                                </div>
+                                <span class="category-name">Insurance</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Popular Billers</label>
+                        <div class="biller-list" id="biller-list">
+                            <div class="biller-item" data-biller="meralco">
+                                <div class="biller-logo">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <span class="biller-name">Meralco</span>
+                            </div>
+                            <div class="biller-item" data-biller="maynilad">
+                                <div class="biller-logo">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <span class="biller-name">Maynilad</span>
+                            </div>
+                            <div class="biller-item" data-biller="globe">
+                                <div class="biller-logo">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <span class="biller-name">Globe</span>
+                            </div>
+                            <div class="biller-item" data-biller="smart">
+                                <div class="biller-logo">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <span class="biller-name">Smart</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="biller-search" class="form-label">Search Biller</label>
+                        <input type="text" id="biller-search" class="form-control" placeholder="Enter biller name">
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-title">Bill Details</h2>
+                    <div class="form-group">
+                        <label for="account-number" class="form-label">Account Number</label>
+                        <input type="text" id="account-number" class="form-control" placeholder="Enter your account number">
+                    </div>
+                    <div class="form-group">
+                        <label for="bill-amount" class="form-label">Amount</label>
+                        <div class="amount-input">
+                            <span class="currency-symbol">₱</span>
+                            <input type="number" id="bill-amount" class="amount-control" placeholder="0.00" min="1" step="0.01">
+                        </div>
+                        <p class="form-text">Available Balance: <span class="wallet-balance">₱0.00</span></p>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-title">Transaction Summary</h2>
+                    <div class="summary-item">
+                        <span class="summary-label">Biller</span>
+                        <span class="summary-value" id="summary-biller">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Account Number</span>
+                        <span class="summary-value" id="summary-account">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Amount</span>
+                        <span class="summary-value" id="summary-amount">₱0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Fee</span>
+                        <span class="summary-value" id="summary-fee">₱0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total</span>
+                        <span class="summary-value" id="summary-total">₱0.00</span>
+                    </div>
+                </div>
+
+                <button type="button" id="pay-btn" class="btn btn-primary">Pay Bill</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="wallet.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        mobileMenu.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // User dropdown toggle
+        const userMenuBtn = document.getElementById('user-menu-btn');
+        const userDropdown = document.getElementById('user-dropdown');
+        userMenuBtn.addEventListener('click', function() {
+            const isVisible = userDropdown.style.display === 'block';
+            userDropdown.style.display = isVisible ? 'none' : 'block';
+        });
+        document.addEventListener('click', function(event) {
+            if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.style.display = 'none';
+            }
+        });
+
+        // Biller selection
+        const billerItems = document.querySelectorAll('.biller-item');
+        const summaryBiller = document.getElementById('summary-biller');
+        billerItems.forEach(item => {
+            item.addEventListener('click', function() {
+                billerItems.forEach(item => item.classList.remove('selected'));
+                this.classList.add('selected');
+                const billerName = this.querySelector('.biller-name').textContent;
+                summaryBiller.textContent = billerName;
+                updateSummary();
+            });
+        });
+
+        // Account number input
+        const accountInput = document.getElementById('account-number');
+        const summaryAccount = document.getElementById('summary-account');
+        accountInput.addEventListener('input', function() {
+            summaryAccount.textContent = this.value || '-';
+        });
+
+        // Bill amount input
+        const amountInput = document.getElementById('bill-amount');
+        amountInput.addEventListener('input', updateSummary);
+
+        function updateSummary() {
+            const amount = parseFloat(amountInput.value) || 0;
+            const fee = amount > 0 ? 15 : 0; // Fixed fee of ₱15
+            const total = amount + fee;
+            document.getElementById('summary-amount').textContent = formatCurrency(amount);
+            document.getElementById('summary-fee').textContent = formatCurrency(fee);
+            document.getElementById('summary-total').textContent = formatCurrency(total);
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '₱' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        // Biller search
+        const billerSearch = document.getElementById('biller-search');
+        billerSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            billerItems.forEach(item => {
+                const billerName = item.querySelector('.biller-name').textContent.toLowerCase();
+                if (billerName.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // --- WALLET INTEGRATION ---
+        // Update all wallet-balance elements on page load
+        function updateAllBalances() {
+            const balance = formatCurrency(getBalance());
+            document.querySelectorAll('.wallet-balance').forEach(el => {
+                el.textContent = balance;
+            });
+        }
+        updateAllBalances();
+
+        // Pay bill button
+        document.getElementById('pay-btn').addEventListener('click', function() {
+            const biller = summaryBiller.textContent;
+            const account = summaryAccount.textContent;
+            const amount = parseFloat(amountInput.value) || 0;
+            const fee = amount > 0 ? 15 : 0;
+            const total = amount + fee;
+
+            // Validate inputs
+            if (biller === '-') {
+                alert('Please select a biller');
+                return;
+            }
+            if (account === '-') {
+                alert('Please enter your account number');
+                return;
+            }
+            if (amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+            if (total > getBalance()) {
+                alert('Insufficient balance to pay this bill.');
+                return;
+            }
+
+            const confirmPay = confirm(`Pay ${formatCurrency(amount)} (plus ₱15 fee) to ${biller}?`);
+            if (confirmPay) {
+                // After successfully paying a bill
+                deductFromBalance(total);
+                saveTransaction("bill", `Paid to ${biller}`, -total);
+
+                // Mark biller as paid
+                let paidBills = JSON.parse(localStorage.getItem('paidBills') || "[]");
+                if (!paidBills.includes(biller)) {
+                    paidBills.push(biller);
+                    localStorage.setItem('paidBills', JSON.stringify(paidBills));
+                }
+
+                updateAllBalances();
+                alert('Bill payment successful!');
+                // Instead of redirecting, show a success message and reset form:
+                // window.location.href = 'dashboard.html';
+                // Reset form for another payment
+                summaryBiller.textContent = '-';
+                summaryAccount.textContent = '-';
+                amountInput.value = '';
+                updateSummary();
+                billerItems.forEach(item => item.classList.remove('selected'));
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+    // Get the username from localStorage
+    const userName = localStorage.getItem('cashEUserName') || '';
+    // Update the navbar name
+    const navName = document.querySelector('.nav-username');
+    if (navName) navName.textContent = userName;
+    // Update the avatar initials if you use them
+    const navAvatar = document.querySelector('.nav-avatar');
+    if (navAvatar) navAvatar.textContent = userName ? userName.split(' ').map(w => w[0]).join('').toUpperCase() : '';
+});
+    </script>
+</body>
+</html>

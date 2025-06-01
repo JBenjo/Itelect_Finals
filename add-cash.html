@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Cash - Cash-E</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            display: inline-block;
+            margin-left: 24px;
+        }
+        
+        .nav-menu a {
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #5b21b6;
+        }
+        
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            font-weight: bold;
+            color: #5b21b6;
+        }
+        
+        .user-name {
+            margin-right: 8px;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-dropdown-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .user-dropdown-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .user-dropdown-item i {
+            margin-right: 12px;
+            width: 16px;
+            color: #666;
+        }
+        
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Header Styles */
+        .header {
+            padding: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #5b21b6;
+            margin-bottom: 16px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        /* Add Cash Form */
+        .add-cash-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .form-title {
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .form-text {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px 12px;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .method-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .method-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        
+        .method-item:hover {
+            border-color: #5b21b6;
+            background-color: #f9f7ff;
+        }
+        
+        .method-item.selected {
+            border-color: #5b21b6;
+            background-color: #f3f0ff;
+        }
+        
+        .method-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f3f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .method-icon i {
+            color: #5b21b6;
+        }
+        
+        .method-details {
+            flex: 1;
+        }
+        
+        .method-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .method-description {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .amount-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .amount-input:focus-within {
+            border-color: #5b21b6;
+            box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.2);
+        }
+        
+        .currency-symbol {
+            font-weight: 500;
+            color: #333;
+            margin-right: 8px;
+        }
+        
+        .amount-control {
+            flex: 1;
+            border: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        
+        .amount-control:focus {
+            outline: none;
+        }
+        
+        .quick-amounts {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .quick-amount {
+            background-color: #f3f0ff;
+            color: #5b21b6;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quick-amount:hover {
+            background-color: #e9d5ff;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: #5b21b6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4c1d95;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .summary-item:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            font-weight: 500;
+        }
+        
+        .summary-label {
+            color: #666;
+        }
+        
+        .summary-value {
+            color: #333;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #111;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="dashboard.html">Cash-E</a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html">Transactions</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li class="user-menu">
+                    <div class="user-menu-btn" id="user-menu-btn">
+                        <div class="user-avatar">JD</div>
+                        <span class="user-name">John Doe</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <a href="account-settings.html" class="user-dropdown-item">
+                            <i class="fas fa-user"></i> Account Settings
+                        </a>
+                        <a href="security.html" class="user-dropdown-item">
+                            <i class="fas fa-shield-alt"></i> Security
+                        </a>
+                        <a href="#" class="user-dropdown-item" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1 class="page-title">Add Cash</h1>
+            <p class="page-subtitle">Add money to your Cash-E wallet</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="add-cash-container">
+                <div class="form-card">
+                    <h2 class="form-title">Select Method</h2>
+                    <div class="method-list">
+                        <div class="method-item" data-method="bank">
+                            <div class="method-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3 class="method-name">Online Banking</h3>
+                                <p class="method-description">Transfer from your bank account</p>
+                            </div>
+                        </div>
+                        <div class="method-item" data-method="card">
+                            <div class="method-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3 class="method-name">Debit/Credit Card</h3>
+                                <p class="method-description">Add cash using your card</p>
+                            </div>
+                        </div>
+                        <div class="method-item" data-method="otc">
+                            <div class="method-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3 class="method-name">Over-the-Counter</h3>
+                                <p class="method-description">Pay at partner establishments</p>
+                            </div>
+                        </div>
+                        <div class="method-item" data-method="remittance">
+                            <div class="method-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3 class="method-name">Remittance Center</h3>
+                                <p class="method-description">Add via remittance centers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card" id="bank-details" style="display: none;">
+                    <h2 class="form-title">Online Banking</h2>
+                    <div class="form-group">
+                        <label for="bank" class="form-label">Select Bank</label>
+                        <select id="bank" class="form-select">
+                            <option value="">Select your bank</option>
+                            <option value="bdo">BDO</option>
+                            <option value="bpi">BPI</option>
+                            <option value="metrobank">Metrobank</option>
+                            <option value="unionbank">UnionBank</option>
+                            <option value="securitybank">Security Bank</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-card" id="card-details" style="display: none;">
+                    <h2 class="form-title">Debit/Credit Card</h2>
+                    <div class="form-group">
+                        <label for="card-number" class="form-label">Card Number</label>
+                        <input type="text" id="card-number" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                    </div>
+                    <div class="form-group">
+                        <div style="display: flex; gap: 16px;">
+                            <div style="flex: 1;">
+                                <label for="expiry" class="form-label">Expiry Date</label>
+                                <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" id="cvv" class="form-control" placeholder="XXX">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name" class="form-label">Name on Card</label>
+                        <input type="text" id="card-name" class="form-control" placeholder="Enter name as it appears on card">
+                    </div>
+                </div>
+
+                <div class="form-card" id="otc-details" style="display: none;">
+                    <h2 class="form-title">Over-the-Counter</h2>
+                    <div class="form-group">
+                        <label for="otc-partner" class="form-label">Select Partner</label>
+                        <select id="otc-partner" class="form-select">
+                            <option value="">Select partner establishment</option>
+                            <option value="7eleven">7-Eleven</option>
+                            <option value="cebuana">Cebuana Lhuillier</option>
+                            <option value="mlhuillier">M Lhuillier</option>
+                            <option value="palawan">Palawan Pawnshop</option>
+                            <option value="sm">SM Business Center</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <p class="form-text">
+                            After completing this transaction, you will receive a reference number. Present this reference number at your chosen partner establishment to complete the cash-in process.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-card" id="remittance-details" style="display: none;">
+                    <h2 class="form-title">Remittance Center</h2>
+                    <div class="form-group">
+                        <label for="remittance-partner" class="form-label">Select Remittance Center</label>
+                        <select id="remittance-partner" class="form-select">
+                            <option value="">Select remittance center</option>
+                            <option value="western">Western Union</option>
+                            <option value="moneygram">MoneyGram</option>
+                            <option value="ria">Ria Money Transfer</option>
+                            <option value="lbc">LBC</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <p class="form-text">
+                            After completing this transaction, you will receive a reference number. Present this reference number at your chosen remittance center to complete the cash-in process.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-title">Amount</h2>
+                    <div class="form-group">
+                        <label for="amount" class="form-label">How much would you like to add?</label>
+                        <div class="amount-input">
+                            <span class="currency-symbol">₱</span>
+                            <input type="number" id="amount" class="amount-control" placeholder="0.00" min="1" step="0.01">
+                        </div>
+                    </div>
+                    <div class="quick-amounts">
+                        <button type="button" class="quick-amount" data-amount="100">₱100</button>
+                        <button type="button" class="quick-amount" data-amount="500">₱500</button>
+                        <button type="button" class="quick-amount" data-amount="1000">₱1,000</button>
+                        <button type="button" class="quick-amount" data-amount="5000">₱5,000</button>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-title">Transaction Summary</h2>
+                    <div class="summary-item">
+                        <span class="summary-label">Method</span>
+                        <span class="summary-value" id="summary-method">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Amount</span>
+                        <span class="summary-value" id="summary-amount">₱0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Fee</span>
+                        <span class="summary-value" id="summary-fee">₱0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total</span>
+                        <span class="summary-value" id="summary-total">₱0.00</span>
+                    </div>
+                </div>
+
+                <button type="button" id="add-cash-btn" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Cash-E. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // User dropdown toggle
+        const userMenuBtn = document.getElementById('user-menu-btn');
+        const userDropdown = document.getElementById('user-dropdown');
+        
+        userMenuBtn.addEventListener('click', function() {
+            // Operator 1: Comparison operator (===)
+            const isVisible = userDropdown.style.display === 'block';
+            
+            // Operator 2: Ternary operator (? :)
+            userDropdown.style.display = isVisible ? 'none' : 'block';
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            // Operator 3: Logical AND (&&)
+            if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.style.display = 'none';
+            }
+        });
+        
+        // Method selection
+        const methodItems = document.querySelectorAll('.method-item');
+        const summaryMethod = document.getElementById('summary-method');
+        
+        // Detail sections
+        const bankDetails = document.getElementById('bank-details');
+        const cardDetails = document.getElementById('card-details');
+        const otcDetails = document.getElementById('otc-details');
+        const remittanceDetails = document.getElementById('remittance-details');
+        
+        methodItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove selected class from all items
+                methodItems.forEach(item => item.classList.remove('selected'));
+                
+                // Add selected class to clicked item
+                this.classList.add('selected');
+                
+                // Get method name
+                const methodName = this.querySelector('.method-name').textContent;
+                
+                // Update summary
+                summaryMethod.textContent = methodName;
+                
+                // Show relevant details section
+                // Operator 4: String manipulation (getAttribute)
+                const method = this.getAttribute('data-method');
+                
+                // Hide all detail sections
+                bankDetails.style.display = 'none';
+                cardDetails.style.display = 'none';
+                otcDetails.style.display = 'none';
+                remittanceDetails.style.display = 'none';
+                
+                // Show selected detail section
+                if (method === 'bank') {
+                    bankDetails.style.display = 'block';
+                } else if (method === 'card') {
+                    cardDetails.style.display = 'block';
+                } else if (method === 'otc') {
+                    otcDetails.style.display = 'block';
+                } else if (method === 'remittance') {
+                    remittanceDetails.style.display = 'block';
+                }
+                
+                // Update summary
+                updateSummary();
+            });
+        });
+        
+        // Quick amount buttons
+        const quickAmountBtns = document.querySelectorAll('.quick-amount');
+        const amountInput = document.getElementById('amount');
+        
+        quickAmountBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Operator 5: Parsing with parseInt
+                const amount = parseInt(this.getAttribute('data-amount'));
+                
+                // Set amount input value
+                amountInput.value = amount;
+                
+                // Update summary
+                updateSummary();
+            });
+        });
+        
+        // Update summary when amount changes
+        amountInput.addEventListener('input', updateSummary);
+        
+        function updateSummary() {
+            const amount = parseFloat(amountInput.value) || 0;
+            
+            // Get selected method
+            const selectedMethod = document.querySelector('.method-item.selected');
+            let fee = 0;
+            
+            if (selectedMethod) {
+                const method = selectedMethod.getAttribute('data-method');
+                
+                // Calculate fee based on method
+                // Operator 6: Logical OR (||)
+                if (method === 'bank' || method === 'card') {
+                    // Operator 7: Arithmetic operator (*)
+                    fee = amount * 0.01; // 1% fee
+                } else {
+                    fee = 15; // Fixed fee
+                }
+            }
+            
+            // Operator 8: Arithmetic operator (+)
+            const total = amount + fee;
+            
+            // Update summary values
+            document.getElementById('summary-amount').textContent = formatCurrency(amount);
+            document.getElementById('summary-fee').textContent = formatCurrency(fee);
+            document.getElementById('summary-total').textContent = formatCurrency(total);
+        }
+        
+        // Format currency value
+        function formatCurrency(value) {
+            return '₱' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,' );
+        }
+        
+        // --- WALLET INTEGRATION MOCKS (if not present) ---
+        if (typeof addToBalance !== 'function') {
+            function addToBalance(amount) {
+                let balance = parseFloat(localStorage.getItem('walletBalance') || '0');
+                balance += amount;
+                localStorage.setItem('walletBalance', balance);
+            }
+        }
+        if (typeof saveTransaction !== 'function') {
+            function saveTransaction(type, title, amount, status = "Success") {
+                let tx = JSON.parse(localStorage.getItem('transactions') || '[]');
+                tx.push({
+                    type,
+                    title,
+                    amount,
+                    status,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem('transactions', JSON.stringify(tx));
+            }
+        }
+        function updateAllBalances() {
+            // If you have wallet-balance elements, update them here
+            // (not shown in this file, but for consistency)
+            const balance = formatCurrency(parseFloat(localStorage.getItem('walletBalance') || '0'));
+            document.querySelectorAll('.wallet-balance').forEach(el => el.textContent = balance);
+        }
+
+        // --- ADD CASH FUNCTIONALITY ---
+        document.getElementById('add-cash-btn').addEventListener('click', function() {
+            const selectedMethod = document.querySelector('.method-item.selected');
+            const amount = parseFloat(amountInput.value) || 0;
+            let fee = 0;
+            let method = '';
+            let methodDetail = '';
+            if (!selectedMethod) {
+                alert('Please select a method.');
+                return;
+            }
+            method = selectedMethod.getAttribute('data-method');
+            if (method === 'bank' || method === 'card') {
+                fee = amount * 0.01;
+            } else {
+                fee = 15;
+            }
+            const total = amount + fee;
+
+            // Validate amount
+            if (amount < 1) {
+                alert('Please enter a valid amount (minimum ₱1).');
+                return;
+            }
+
+            // Validate required details for each method
+            if (method === 'bank') {
+                const bank = document.getElementById('bank').value;
+                if (!bank) {
+                    alert('Please select your bank.');
+                    return;
+                }
+                methodDetail = document.getElementById('bank').options[document.getElementById('bank').selectedIndex].text;
+            }
+            if (method === 'card') {
+                const cardNumber = document.getElementById('card-number').value.trim();
+                const expiry = document.getElementById('expiry').value.trim();
+                const cvv = document.getElementById('cvv').value.trim();
+                const cardName = document.getElementById('card-name').value.trim();
+                if (!cardNumber || !expiry || !cvv || !cardName) {
+                    alert('Please fill in all card details.');
+                    return;
+                }
+                methodDetail = 'Card ending in ' + cardNumber.slice(-4);
+            }
+            if (method === 'otc') {
+                const otc = document.getElementById('otc-partner').value;
+                if (!otc) {
+                    alert('Please select a partner establishment.');
+                    return;
+                }
+                methodDetail = document.getElementById('otc-partner').options[document.getElementById('otc-partner').selectedIndex].text;
+            }
+            if (method === 'remittance') {
+                const rem = document.getElementById('remittance-partner').value;
+                if (!rem) {
+                    alert('Please select a remittance center.');
+                    return;
+                }
+                methodDetail = document.getElementById('remittance-partner').options[document.getElementById('remittance-partner').selectedIndex].text;
+            }
+
+            // Confirm
+            if (!confirm(`Add ${formatCurrency(amount)} (fee: ${formatCurrency(fee)}) via ${summaryMethod.textContent}?`)) {
+                return;
+            }
+
+            // Add to balance and save transaction
+            addToBalance(amount);
+            saveTransaction(
+                "add",
+                `Add Cash via ${summaryMethod.textContent}${methodDetail ? ' (' + methodDetail + ')' : ''}`,
+                amount,
+                "Success"
+            );
+            updateAllBalances();
+
+            alert('Cash successfully added to your wallet!');
+            // Reset form
+            methodItems.forEach(item => item.classList.remove('selected'));
+            summaryMethod.textContent = '-';
+            amountInput.value = '';
+            updateSummary();
+            bankDetails.style.display = 'none';
+            cardDetails.style.display = 'none';
+            otcDetails.style.display = 'none';
+            remittanceDetails.style.display = 'none';
+            // Optionally reset detail fields
+            if (document.getElementById('bank')) document.getElementById('bank').value = '';
+            if (document.getElementById('card-number')) document.getElementById('card-number').value = '';
+            if (document.getElementById('expiry')) document.getElementById('expiry').value = '';
+            if (document.getElementById('cvv')) document.getElementById('cvv').value = '';
+            if (document.getElementById('card-name')) document.getElementById('card-name').value = '';
+            if (document.getElementById('otc-partner')) document.getElementById('otc-partner').value = '';
+            if (document.getElementById('remittance-partner')) document.getElementById('remittance-partner').value = '';
+        });
+
+        // Initialize summary on load
+        updateSummary();
+    </script>
+</body>
+</html>
