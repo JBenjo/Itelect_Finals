@@ -697,9 +697,7 @@
 
         window.addEventListener('DOMContentLoaded', function() {
     const userName = localStorage.getItem('cashEUserName') || 'User';
-    // Update all elements with .nav-username
     document.querySelectorAll('.nav-username').forEach(el => el.textContent = userName);
-    // Update all elements with .nav-avatar
     const initials = userName.split(' ').map(w => w[0]).join('').toUpperCase();
     document.querySelectorAll('.nav-avatar').forEach(el => el.textContent = initials);
 });
